@@ -1,0 +1,14 @@
+.vscode/
+monitor
+a.out
+settings.json
+*.o
+build/*
+*.json
+*.swp
+*.osm
+draw.cpp
+test.cpp
+build/
+bin/
+lib/

@@ -1,0 +1,113 @@
+For reference, the code forks are available here:
+
+https://github.com/dbecad/CppND-Route-Planning-Project/network/members
+
+*-----------------------------------------------------*
+Project OpenStreetMap:
+
+I have a question in Project OpenStreetMap. I filled in the CalculateHValue method in route_planner.cpp
+
+float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
+	//return (*end_node).distance(*node);
+	//return (*node).distance(*end_node);
+	//return end_node->distance(*node);
+	//return node->distance(*end_node);
+}
+But in each of the individual commented line I have tried, there's no error when I perform "make". After running "./test", I get following error:
+
+Running main() from /home/workspace/CppND-Route-Planning-Project/thirdparty/googletest/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 4 tests from RoutePlannerTest
+[ RUN      ] RoutePlannerTest.TestCalculateHValue
+Segmentation fault (core dumped)
+
+Please let me know where I am making a mistake in my code.
+
+solution:
+error in //To-do2: storing start_node and end_node attributes.
+So that's the most likely cause of your problem - start_node and end_node are meant to member variables of the class - however rather than assign them values here, you've created new versions of them that go out of scope as soon as the constructor is completed. This means that your heuristic function is trying to access bad data when calculating the distance to the end node, which is the root cause of your segmentation fault.
+
+Running main() from /home/workspace/CppND-Route-Planning-Project/thirdparty/googletest/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 4 tests from RoutePlannerTest
+[ RUN      ] RoutePlannerTest.TestCalculateHValue
+[       OK ] RoutePlannerTest.TestCalculateHValue (117 ms)
+[ RUN      ] RoutePlannerTest.TestAddNeighbors
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:88: Failure
+Expected equality of these values:
+  neighbors[i]->h_value
+    Which is: 1.1329799
+  start_neighbor_h_vals[i]
+    Which is: 1.1828455
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:88: Failure
+Expected equality of these values:
+  neighbors[i]->h_value
+    Which is: 1.1329799
+  start_neighbor_h_vals[i]
+    Which is: 1.0998145
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:88: Failure
+Expected equality of these values:
+  neighbors[i]->h_value
+    Which is: 1.1329799
+  start_neighbor_h_vals[i]
+    Which is: 1.0858033
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:88: Failure
+Expected equality of these values:
+  neighbors[i]->h_value
+    Which is: 1.1329799
+  start_neighbor_h_vals[i]
+    Which is: 1.1831238
+[  FAILED  ] RoutePlannerTest.TestAddNeighbors (116 ms)
+[ RUN      ] RoutePlannerTest.TestConstructFinalPath
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:102: Failure
+Expected equality of these values:
+  path.size()
+    Which is: 0
+  3
+Segmentation fault (core dumped)
+
+Solution::
+h_value is calculated from node(i.e. respective neighbor of current_node to end_node). Therefore, CalculateHValue had errors in arguments.
+
+After running the "./test" up to RouteModel::Node *RoutePlanner::NextNode(){}
+
+Running main() from /home/workspace/CppND-Route-Planning-Project/thirdparty/googletest/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 4 tests from RoutePlannerTest
+[ RUN      ] RoutePlannerTest.TestCalculateHValue
+[       OK ] RoutePlannerTest.TestCalculateHValue (111 ms)
+[ RUN      ] RoutePlannerTest.TestAddNeighbors
+[       OK ] RoutePlannerTest.TestAddNeighbors (109 ms)
+[ RUN      ] RoutePlannerTest.TestConstructFinalPath
+/home/workspace/CppND-Route-Planning-Project/test/utest_rp_a_star_search.cpp:102: Failure
+Expected equality of these values:
+  path.size()
+    Which is: 0
+  3
+Segmentation fault (core dumped)
+
+After ConstructFinalPath(), reversing path_found, AStarSearch():
+
+unknown file: Failure
+C++ exception with description "std::bad_alloc" thrown in the test body.
+[  FAILED  ] RoutePlannerTest.TestAStarSearch (176213 ms)
+[----------] 4 tests from RoutePlannerTest (176563 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test case ran. (176563 ms total)
+[  PASSED  ] 3 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] RoutePlannerTest.TestAStarSearch
+
+ 1 FAILED TEST
+
+*-----------------------------------------------------*
+Project OpenStreetMap:
+
+2020,Jan 7:
+https://github.com/aberracles/CppND-System-Monitor/network/members
+
+https://github.com/bharatkrishna/CppND-System-Monitor/blob/master/src/linux_parser.cpp

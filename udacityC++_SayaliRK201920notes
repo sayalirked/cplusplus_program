@@ -1,0 +1,364 @@
+Udacity C++ nanodegree program:
+Nov 28,2019:
+Giving "&v" means it's a reference to the variable; that means we are passing the original variable. So any operations performed on the variable will change it further. Or else it just means that we create a copy of the variable (use "v" only); which can take a lot of time in some programs. 
+
+Dec 7, 2019:
+The major difference between const and constexpr, though, is that constexpr must be evaluated at compile time.
+The compiler will catch a constexpr variable that cannot be evaluated at compile time.
+e.g. static float constexpr pi_{3.14159};
+
+Dec 7,2019:
+A* search:
+Search( grid, initial_point, goal_point ) :
+
+Initialize an empty list of open nodes.
+
+Initialize a starting node with the following:
+
+x and y values given by initial_point.
+g = 0, where g is the cost for each move.
+h given by the heuristic function (a function of the current coordinates and the goal).
+Add the new node to the list of open nodes.
+
+while the list of open nodes is nonempty:
+
+Sort the open list by f-value
+Pop the optimal cell (called the current cell).
+Mark the cell's coordinates in the grid as part of the path.
+if the current cell is the goal cell:
+
+return the grid.
+else, expand the search to the current node's neighbors. This includes the following steps:
+
+Check each neighbor cell in the grid to ensure that the cell is empty: it hasn't been closed and is not an obstacle.
+If the cell is empty, compute the cost (g value) and the heuristic, and add to the list of open nodes.
+Mark the cell as closed.
+If you exit the while loop because the list of open nodes is empty, you have run out of new nodes to explore and haven't found a path.
+
+WHILE loop for A* search algorithm:
+// TODO: while open vector is non empty {
+    // TODO: Sort the open list using `CellSort`, and get the current node.
+
+    // TODO: Get the x and y values from the current node,
+    // and set grid[x][y] to kPath.
+
+    // TODO: Check if you've reached the goal. If so, return grid.
+
+
+    // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
+    // ExpandNeighbors
+
+  //} // TODO: End while loop
+
+ExpandNeighbors function :: 
+// TODO: ExpandNeighbors {
+
+  // TODO: Get current node's data.
+
+  // TODO: Loop through current node's potential neighbors.
+
+    // TODO: Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
+
+      // TODO: Increment g value, compute h value, and add neighbor to open list.
+
+// } TODO: End function
+
+2019,Dec 13:
+Project:OpenStreetMap (https://github.com/udacity/CppND-Route-Planning-Project)
+A C++ pointer is just a variable that stores the memory address of an object in your program
+
+2019,Dec 15:
+In the workspace desktop, you can open Visual Studio Code and a terminal within Visual Studio. To build the code, make a build directory and then cd into that directory. From within the build directory, you can then run the following commands to compile:
+
+cmake ..
+make
+
+Running the project must be done from the workspace desktop in order for you to be able to see the mapped output. In the terminal, navigate to the build folder. From the build directory, you can run the compiled executable with map data using the following command:
+
+./OSM_A_star_search
+Or to specify a map file:
+
+./OSM_A_star_search -f ../<your_osm_file.osm>
+
+2020, Jan 2: 
+Code to compile and execute the C program:
+g++ -std=c++17 ./code/filename.cpp 
+./a.out
+
+OR
+g++ -std=c++17 ./code/filename.cpp && ./a.out
+
+2020,Jan 5:
+
+An "invariant" is a rule that limits the values of member variables. Classes, like structures, provide a way for C++ programmers to aggregate data together in a way that makes sense in the context of a specific program. By convention, programmers use structures when member variables are independent of each other, and use classes when member variables are related by an "invariant".
+
+Constructors are member functions of a class or struct that initialize an object. 
+Namespaces allow programmers to group logically related variables and functions together. Namespaces also help to avoid conflicts between to variables that have the same name in different parts of a program. Classes like std::vector and functions like std::sort are defined within the std namespace.
+
+Initializer lists initialize member variables to specific values, just before the class constructor runs. This initialization ensures that class members are automatically initialized when an instance of the class is created.
+'struct' automatically is 'public'; therefore can replace the 'class' along with 'public' definition
+In case of 'const' variables, we need to use initializer lists in the constructor.
+
+Mutator functions are called Setter functions; Accessor functions = Getter functions.
+Access modifiers: private and public
+
+Abstraction refers to the separation of a class's interface from the details of its implementation. The interface provides a way to interact with an object, while hiding the details and implementation of how the class works.
+
+2020,Jan 5:
+If 'static' is not declared for a const pi_, each time a new copy of pi_ gets generated for a new object of class.
+Initializing the variable inside the class will need the variable to be declared as constexpr (evaluated at compile-time). or else as 'const' and initialization outside the class. (which will be evaluated at run-time)
+
+static attributes exist beyond a particular instance of a class, but do not extend into conflict with other static attributes defined within other classes. Just like static member variables, static member functions are instance-independent: they belong to the class, not to any particular instance of the class.
+
+Access specifiers: public, private, protected. Users won't have access to parent class through derived classes, in case of private or protected. In case of derived classes of the derived class, protected ones will be able to reach up to parent class, but not private ones.
+
+Composition involves constructing ("composing") classes from other classes, instead of inheriting traits from a parent class. From the standpoint of composition, a cat "has a" head and "has a" set of paws and "has a" tail. From the standpoint of inheritance, a cat "is a" mammal.
+In C++, friend classes provide an alternative inheritance mechanism to derived classes. The main difference between classical inheritance and friend inheritance is that a friend class can access private members of the base class, which isn't the case for classical inheritance. In classical inheritance, a derived class can only access public and protected members of the base class.
+
+In the context of object-oriented programming, polymorphism) describes a paradigm in which a function may behave differently depending on how it is called. In particular, the function will perform differently based on its inputs. Polymorphism can be achieved in two ways in C++: overloading and overriding.
+In C++, you can write two (or more) versions of a function with the same name. This is called "overloading". Overloading requires that we leave the function name the same, but we modify the function signature.
+Operator overloading can be useful for many things. Consider the + operator. We can use it to add ints, doubles, floats, or even std::strings. In order to overload an operator, use the operator keyword in the function signature.
+A pure virtual function is a virtual function that the base class declares but does not define.
+
+A pure virtual function has the side effect of making its class abstract. This means that the class cannot be instantiated. Instead, only classes that derive from the abstract class and override the pure virtual function can be instantiated.
+"Overriding" a function occurs when:
+A base class declares a virtual function.
+A derived class overrides that virtual function by defining its own implementation with an identical function signature (i.e. the same function name and argument types).
+Overriding requires a virtual function in the base class.
+The distinction between overriding and hiding is subtle and not terribly significant, but in certain situations hiding can lead to bizarre errors, particularly when the two functions have slightly different function signatures.
+
+Templates enable generic programming by generalizing a function to apply to any class. Specifically, templates use types as parameters so that the same implementation can operate on different data types.
+Deduction occurs when you instantiate an object without explicitly identifying the types. Instead, the compiler "deduces" the types. 
+
+2020,Jan 6:
+Project System Monitor:
+https://review.udacity.com/#!/rubrics/2518/view
+
+Linux stores a lot of system data in files within the /proc directory. Most of the data that this project requires exists in those files.
+Operating System:
+Information about the operating system exists outside of the /proc directory, in the /etc/os-release file.
+There are several strings from which to choose here, but the most obvious is the value specified by "PRETTY_NAME".
+
+Kernel:
+Information about the kernel exists /proc/version file.
+
+Memory Utilization:
+Information about memory utilization exists in the /proc/meminfo file.
+https://stackoverflow.com/questions/41224738/how-to-calculate-system-memory-usage-from-proc-meminfo-like-htop/41251290#41251290
+
+Total Processes:
+Information about the total number of processes on the system exists in the /proc/meminfo file.
+
+Running Processes:
+Information about the number of processes on the system that are currently running exists in the /proc/meminfo file.
+Check out 'cat /proc/stat'.
+
+Up Time:
+Information about system up time exists in the /proc/uptime file.
+Note that the "starttime" value in this file is measured in "clock ticks". In order to convert from "clock ticks" to seconds, you must:
+#include <unistd.h>
+divide the "clock ticks" value by sysconf(_SC_CLK_TCK)
+Once you have converted the time value to seconds, you can use the Format::Time() function from the project starter code to display the seconds in a "HH:MM:SS" format.
+
+process.cpp:: sort the cpu utilization and ram using operator 'less than' 
+linux_parser.cpp::
+processor utilization -- https://stackoverflow.com/questions/16726779/how-do-i-get-the-total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
+
+http://man7.org/linux/man-pages/man5/proc.5.html -- Linux commands page
+
+2020, Jan 26:
+Using GDB to analyze memory: 
+gdb ./../bin/gnudebug_eg1 OR 
+g++ -g ./gnudebug_eg1.cpp
+gdb ./a.out
+
+Output looks like:
+GNU gdb (Ubuntu 8.1-0ubuntu3.2) 8.1.0.20180409-git
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./a.out...done.
+(gdb) list
+(gdb) break 5
+Breakpoint 1 at 0x6c1: file ./gnudebug_eg1.cpp, line 5.
+(gdb) run
+Starting program: /home/sayalirk/Documents/Sayali_UdacityC++/memorymanagement/a.out 
+
+Breakpoint 1, main () at ./gnudebug_eg1.cpp:5
+5           char str1[]= "UDACITY";
+(gdb) step
+6           printf("%s",str1);
+(gdb) p str1 
+$1 = "UDACITY"
+(gdb) p &str1
+$2 = (char (*)[8]) 0x7fffffffdcf0
+(gdb) x/7tb
+Argument required (starting display address).
+(gdb) x/7tb 0x7fffffffdcf0
+0x7fffffffdcf0: 01010101        01000100        01000001        01000011        01001001        01010100        01011001
+(gdb) x/7xb 0x7fffffffdcf0
+0x7fffffffdcf0: 0x55    0x44    0x41    0x43    0x49    0x54    0x59
+
+The bit size of the CPU decides how many bytes of data it can access in RAM memory at the same time. A 16-bit CPU can access 2 bytes (with each byte consisting of 8 bit) while a 64-bit CPU can access 8 bytes at a time.
+
+The processing speed of the CPU is measured in Gigahertz or Megahertz and denotes the number of operations it can perform in one second.
+
+Debian Linux linux:
+lscpu|grep cache
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            3072K
+
+In algorithm design, programmers can exploit two principles to increase runtime performance: Temporal locality, spatial locality.
+
+Runtime performance can be improved by making small changes in the code. e.g. don't print the output in the array operations. interchange i and j indices.
+The rows of the two-dimensional matrix are copied one after the other. This format is called "row major" and is the default for both C and C++. Some other languages such as Fortran are "column major" and a memory-aware programmer should always know the memory layout of the language he or she is using. ven though the row major memory layout is used in C++, this doesn't mean that all C++ libraries have the same default; for example, the popular Eigen library used for matrix operations in C++ defaults to column major. (https://eigen.tuxfamily.org/dox/group__TopicStorageOrders.html)
+
+There is a 32-bit address space, and each address directs to a single byte stored at that location. Each bit can be 0 or 1, so the total number of addresses is 2^32. How many bytes of memory does that correspond to? 4GB
+
+Blocks of memory:
+The stack is a contiguous memory block with a fixed maximum size. If a program exceeds this size, it will crash. The stack is used for storing automatically allocated variables such as local variables or function parameters. If there are multiple threads in a program, then each thread has its own stack memory. New memory on the stack is allocated when the path of execution enters a scope and freed again once the scope is left. It is important to know that the stack is managed "automatically" by the compiler, which means we do not have to concern ourselves with allocation and deallocation.
+
+The heap (also called "free store" in C++) is where data with dynamic storage lives. It is shared among multiple threads in a program, which means that memory management for the heap needs to take concurrency into account. This makes memory allocations in the heap more complicated than stack allocations. In general, managing memory on the heap is more (computationally) expensive for the operating system, which makes it slower than stack memory. Contrary to the stack, the heap is not managed automatically by the system, but by the programmer. If memory is allocated on the heap, it is the programmer’s responsibility to free it again when it is no longer needed. If the programmer manages the heap poorly or not at all, there will be trouble.
+
+The BSS (Block Started by Symbol) segment is used in many compilers and linkers for a segment that contains global and static variables that are initialized with zero values. This memory area is suitable, for example, for arrays that are not initialized with predefined values.
+
+The Data segment serves the same purpose as the BSS segment with the major difference being that variables in the Data segment have been initialized with a value other than zero. Memory for variables in the Data segment (and in BSS) is allocated once when a program is run and persists throughout its lifetime.
+
+Memory allocation in C++:
+Static memory allocation is performed for static and global variables, which are stored in the BSS and Data segment. Memory for these types of variables is allocated once when your program is run and persists throughout the life of your program.
+
+Automatic memory allocation is performed for function parameters as well as local variables, which are stored on the stack. Memory for these types of variables is allocated when the path of execution enters a scope and freed again once the scope is left.
+
+Dynamic memory allocation is a possibility for programs to request memory from the operating system at runtime when needed. This is the major difference to automatic and static allocation, where the size of the variable must be known at compile time. Dynamic memory allocation is not performed on the limited stack but on the heap and is thus (almost) only limited by the size of the address space.
+
+##two major downsides to passing by value:
+
+Passing parameters by value means that a copy is created, which is an expensive operation that might consume large amounts of memory, depending on the data that is being transferred. Later in this course we will encounter "move semantics", which is an effective way to compensate for this downside.
+Passing by value also means that the created copy can not be used as a back channel for communicating with the caller, for example by directly writing the desired information into the variable.
+
+##pointers vs. references:
+If passing by value needs to be avoided, both pointers and references are a way to achieve this. The following selection of properties contrasts the two methods so it will be easier to decide which to use from the perspective of the use-case at hand:
+
+Pointers can be declared without initialization. This means we can pass an uninitialized pointer to a function who then internally performs the initialization for us.
+
+Pointers can be reassigned to another memory block on the heap.
+
+References are usually easier to use (depending on the expertise level of the programmer). Sometimes however, if a third-party function is used without properly looking at the parameter definition, it might go unnoticed that a value has been modified.
+
+##Memory consumption::
+CallByValue requires 32 bytes of memory. As discussed before, this is reserved for e.g. the function return address and for the local variables within the function (including the copy of i).
+
+CallByPointer on the other hand requires - perhaps surprisingly - 36 bytes of memory. Let us complete the examination before going into more details on this result.
+
+CallByReference finally has the same memory requirements as CallByPointer
+
+2020, Feb 4:
+## Heap memory
+As mentioned earlier, the heap memory grows upwards while the stack grows in the opposite direction. We have seen in the last lesson that the automatic stack memory shrinks and grows with each function call and local variable. As soon as the scope of a variable is left, it is automatically deallocated and the stack pointer is shifted upwards accordingly.
+Heap memory is different in many ways: The programmer can request the allocation of memory by issuing a command such as malloc or new (more on that shortly). This block of memory will remain allocated until the programmer explicitly issues a command such as free or delete. The huge advantage of heap memory is the high degree of control a programmer can exert, albeit at the price of greater responsibility since memory on the heap must be actively managed.
+A classic symptom of memory fragmentation is that you try to allocate a large block and you can’t, even though you appear to have enough memory free. On systems with virtual memory however, this is less of a problem, because large allocations only need to be contiguous in virtual address space, not in physical address space.
+When memory is heavily fragmented however, memory allocations will likely take longer because the memory allocator has to do more work to find a suitable space for the new object.
+
+malloc (stands for Memory Allocation) or calloc (stands for Cleared Memory Allocation)
+--malloc is used to dynamically allocate a single large block of memory with the specified size. It returns a pointer of type void which can be cast into a pointer of any form.
+--calloc is used to dynamically allocate the specified number of blocks of memory of the specified type. It initializes each block with a default value '0'.
+
+##Memory for arrays and structs
+Since arrays and pointers are displayed and processed identically internally, individual blocks of data can also be accessed using array syntax.
+--realloc will not erase memory but merely mark it as "available" for future allocations. It should be noted however that accessing a memory location after such an operation must be avoided as it could cause a segmentation fault.
+--free can only free memory that was reserved with malloc or calloc.
+free can only release memory that has not been released before. Releasing the same block of memory twice will result in an error.
+
+e.g.: a pointer p is copied into a new variable p2, which is then passed to free AFTER the original pointer has been already released. he pointer p2 in the example is invalid as soon as free(p) is called. It still holds the address to the memory location which has been freed, but may not access it anymore. Such a pointer is called a "dangling pointer".
+Memory allocated with malloc or calloc is not subject to the familiar rules of variables in their respective scopes. This means that they exist independently of block limits until they are released again or the program is terminated. However, the pointers which refer to such heap-allocated memory are created on the stack and thus only exist within a limited scope. As soon as the scope is left, the pointer variable will be lost - but not the heap memory it refers to.
+
+2020,Feb 8:
+When an object is created, its constructor needs to be called to allow for member initialization. Also, on object deletion, the destructor is called to free resources and to allow for programmer-defined clean-up tasks. For this reason, C++ introduces the operators new / delete, which represent the object-oriented counterpart to memory management with malloc / free.
+Differences:
+1. Constructors / Destructors Unlike malloc( sizeof(MyClass) ), the call new MyClass() calls the constructor. Similarly, delete calls the destructor.
+
+2. Type safety malloc returns a void pointer, which needs to be cast into the appropriate data type it points to. This is not type safe, as you can freely vary the pointer type without any warnings or errors from the compiler as in the following small example: MyObject *p = (MyObject*)malloc(sizeof(int));
+
+In C++, the call MyObject *p = new MyObject() returns the correct type automatically - it is thus type-safe.
+
+3. Operator Overloading As malloc and free are functions defined in a library, their behavior can not be changed easily. The new and delete operators however can be overloaded by a class in order to include optional proprietary behavior.
+
+If we were to use the standard new/delete construct, memory would be allocated and freed unnecessarily as only the content of the memory block changes but not its size. With 'placement new', we can pass a preallocated memory and construct an object at that memory location.
+
+void *memory = malloc(sizeof(MyClass));
+MyClass *object = new (memory) MyClass;
+
+The syntax new (memory) is denoted as placement new. The difference to the "conventional" new we have been using so far is that that no memory is allocated. The call constructs an object and places it in the assigned memory location. There is however, no delete equivalent to placement new, so we have to call the destructor explicitly in this case instead of using delete as we would have done with a regular call to new.
+
+object->~MyClass();
+free(memory); 
+
+Important: Note that this should never be done outside of placement new.
+
+## A collection of typical errors in memory management that you need to watch out for.
+
+1. Memory Leaks:: Memory leaks occur when data is allocated on the heap at runtime, but not properly deallocated. A program that forgets to clear a memory block is said to have a memory leak - this may be a serious problem or not, depending on the circumstances and on the nature of the program. For a program that runs, computes something, and quits immediately, memory leaks are usually not a big concern. Memory leaks are mostly problematic for programs that run for a long time and/or use large data structures. In such a case, memory leaks can gradually fill the heap until allocation requests can no longer be properly met and the program stops responding or crashes completely. We will look at an example further down in this section.
+
+2. Buffer Overruns:: Buffer overruns occur when memory outside the allocated limits is overwritten and thus corrupted. One of the resulting problems is that this effect may not become immediately visible. When a problem finally does occur, cause and effect are often hard to discern. It is also sometimes possible to inject malicious code into programs in this way, but this shall not be discussed here.
+In this example, the allocated stack memory is too small to hold the entire string, which results in a segmentation fault:
+
+char str[5];
+strcpy(str,"BufferOverrun");
+printf("%s",str);
+
+3. Uninitialized Memory:: Depending on the C++ compiler, data structures are sometimes initialized (most often to zero) and sometimes not. So when allocating memory on the heap without proper initialization, it might sometimes contain garbage that can cause problems.
+
+Generally, a variable will be automatically initialized in these cases:
+
+it is a class instance where the default constructor initializes all primitive types
+array initializer syntax is used, such as int a[10] = {}
+it is a global or extern variable
+it is defined static
+
+The behavior of the following code is potentially undefined:
+int a;
+int b=a*42;
+printf("%d",b);
+
+4. Incorrect pairing of allocation and deallocation:: Freeing a block of memory more than once will cause a program to crash. This can happen when a block of memory is freed that has never been allocated or has been freed before. Such behavior could also occur when improper pairings of allocation and deallocation are used such as using malloc() with delete or new with free().
+
+In this first example, the wrong new and delete are paired
+
+double *pDbl=new double[5];
+delete pDbl;
+In this second example, the pairing is correct but a double deletion is performed:
+
+char *pChr=new char[5];
+delete[] pChr;
+delete[] pChr;
+
+5. Invalid memory access:: This error occurs then trying to access a block of heap memory that has not yet or has already been deallocated.
+
+In this example, the heap memory has already been deallocated at the time when strcpy() tries to access it:
+
+char *pStr=new char[25];
+delete[] pStr;
+strcpy(pStr, "Invalid Access");
+
+## Valgrind, a free software for Linux and Mac that is able to automatically detect memory. Windows programers can for example use the Visual Studio debugger and C Run-time Library (CRT) to detect and identify memory leaks. More information on how to do this can be found here: Find memory leaks with the CRT Library - Visual Studio | Microsoft Docs.
+With recent versions of MacOS, occasional difficulties have been reported with installing Valgrind. A working version for MacOS Mojave can be downloaded from GitHub via Homebrew: GitHub - sowson/valgrind: Experimental Version of Valgrind for macOS 10.14.6 Mojave
+Valgrind is a framework that facilitates the development of tools for the dynamic analysis of programs. Dynamic analysis examines the behavior of a program at runtime, in contrast to static analysis, which often checks programs for various criteria or potential errors at the source code level before, during, or after translation. More information on Valgrind can be found here: http://valgrind.org/info/
+The Memcheck tool within Valgrind can be used to detect typical errors in programs written in C or C++ that occur in connection with memory management. It is probably the best-known tool in the Valgrind suite, and the name Valgrind is often used as a synonym for Memcheck.
+
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-files=./bin/valgrind-out.txt ./bin/<filename generated executable>
+
+##RAII, which stands for Resource Acquisition Is Initialization. -- helps in solving the problems of memory leaks.
+
+
