@@ -1,4 +1,6 @@
 Udacity C++ nanodegree program:
+Desired Role: I'm looking for positions such as Computational Scientist, Data Scientist, FE analyst, Technical Support Engineer in R&D computational mechanics labs or industry.
+Additional Details: My career goal is to become a computational scientist at a national lab. I am pursuing my PhD with research focus on 'Bayesian learning in solid mechanics'. I will look for jobs by the end of the year 2020. I'm also open to internships in Fall 2020.
 Nov 28,2019:
 Giving "&v" means it's a reference to the variable; that means we are passing the original variable. So any operations performed on the variable will change it further. Or else it just means that we create a copy of the variable (use "v" only); which can take a lot of time in some programs. 
 
@@ -362,3 +364,21 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose -
 ##RAII, which stands for Resource Acquisition Is Initialization. -- helps in solving the problems of memory leaks.
 
 
+2020,Mar 3:
+Resource Acquisition is Initialization (RAII)
+several copying policies:
+
+Default copying
+No copying
+Exclusive ownership
+Deep copying
+Shared ownership
+In order to properly manage memory allocation, deallocation and copying behavior, we have seen that there is an intricate relationship between destructor, copy constructor and copy assignment operator. To this end, the Rule of Three states that if a class needs to have an overloaded copy constructor, copy assignment operator, ~or~ destructor, then it must also implement the other two as well to ensure that memory is managed consistently.
+The default behavior of both copy constructor and assignment operator is to perform a shallow copy.
+Shared resourceship policy:
+The idea is to perform a copy or assignment similar to the default behavior, i.e. copying the handle instead of the content (as with a shallow copy) while at the same time keeping track of the number of instances that also point to the same resource. Each time an instance goes out of scope, the counter is decremented. Once the last object is about to be deleted, it can safely deallocate the memory resource.
+
+Lvalues have an address that can be accessed. They are expressions whose evaluation by the compiler determines the identity of objects or functions. Prvalues do not have an address that is accessible directly. They are temporary expressions used to initialize objects or compute the value of the operand of an operator.
+value 42 is an rvalue. It does not have a specific memory address which we know about. The rvalue is assigned to a variable i with a specific memory location known to us, which is what makes it an lvalue.
+
+Since C++11, there is a new type available called rvalue reference, which can be identified from the double ampersand && after a type name. With this operator, it is possible to store and even modify an rvalue, i.e. a temporary object which would otherwise be lost quickly
